@@ -5,6 +5,7 @@ import java.util.Scanner;
 import main.Event;
 import main.EventListener;
 import main.Main;
+import model.ModelEvent;
 
 /**
  *
@@ -32,7 +33,8 @@ public class View implements EventListener {
     }
     
     private void laberynthInput () {
-        System.out.println("Insert laberynth layout. You must insert line by line putting the elements together:");
+        // Input for the laberynth
+        System.out.println("[Insert laberynth layout] You must insert line by line putting the elements together:");
         char[][] lab = new char[sizes[0]][sizes[1]];
         String line = "";
         for (int i = 0; i < sizes[0]; i++) {
@@ -41,6 +43,7 @@ public class View implements EventListener {
                 lab[i][j] = line.charAt(j);
             }
         }
+        // Show the created laberynth
         System.out.println("The created laberynth is the followed: ");
         for (int i = 0; i < sizes[0]; i++) {
             for (int j = 0; j < sizes[1]; j++) {
@@ -48,7 +51,8 @@ public class View implements EventListener {
             }
             System.out.println("");
         }
-        // Send lab to model
+        // Sen lab. to model
+        main.notify(new ModelEvent(lab));
     }
     
     private void calculateResult () {

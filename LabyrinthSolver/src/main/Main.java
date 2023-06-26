@@ -1,6 +1,7 @@
 
 package main;
 
+import model.Model;
 import view.View;
 
 /**
@@ -9,6 +10,7 @@ import view.View;
  */
 public class Main implements EventListener {
     private View view;
+    private Model model;
     
     public static void main(String[] args) {
         (new Main()).init();
@@ -20,6 +22,7 @@ public class Main implements EventListener {
             case VIEW:
                 break;
             case MODEL:
+                this.model.notify(e);
                 break;
             case CONTROLLER:
                 
@@ -28,5 +31,6 @@ public class Main implements EventListener {
     
     public void init() {
         this.view = new View(this);
+        this.model = new Model(0, 0, 0);
     }
 }
