@@ -59,11 +59,19 @@ public class View implements EventListener {
     private void calculateResult () {
         // Activate the controller algorithm execution
         main.notify(new ControllerEvent());
-        // Show result
+    }
+    
+    private void showResult (int result) {
+        System.out.println("The solution is: " + result);
     }
 
     @Override
     public void notify(Event e) {
-        
+        ViewEvent event = (ViewEvent) e;
+        switch(event.viewEventType) {
+            case SOLUTION:
+                showResult(event.result);
+                break;
+        }
     }
 }

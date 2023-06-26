@@ -15,7 +15,7 @@ public class Main implements EventListener {
     private Controller controller;
     
     public void init() {
-        this.model = new Model(this, 0, 0, 0);
+        this.model = new Model(this);
         this.controller = new Controller(this);
         this.view = new View(this);
     }

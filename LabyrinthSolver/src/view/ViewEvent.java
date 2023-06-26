@@ -11,18 +11,16 @@ import main.EventType;
 
 public class ViewEvent extends Event {
     public ViewEventType viewEventType;
+    public int result;
 
-    public ViewEvent(boolean state) {
-        super(EventType.VIEW);
-        
-        
-        this.viewEventType = state ? ViewEventType.START : ViewEventType.FINISH;
+    public ViewEvent(int result) {
+        super(EventType.VIEW);      
+        this.result = result;
+        this.viewEventType = ViewEventType.SOLUTION;
     }
     
     static public enum ViewEventType {
-        START,
-        FINISH,
-        CONSULT_MODEL
+        SOLUTION
     };
 }
 
