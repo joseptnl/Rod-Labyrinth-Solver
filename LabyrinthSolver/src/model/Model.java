@@ -37,25 +37,34 @@ public class Model implements EventListener {
         return 4;
     }
     
-    public boolean isAppliableMov (int x, int y, int rot) {
+    public boolean isAppliableMov (int x, int y, int rot) { 
         for (int i = -1; i < 2; i++) {
-            if (rot == 0 && ((x + i < 0 || x + i >= labyrinth[0].length) || labyrinth[x+i][y] == WALL)) return false;
-            if (rot == 1 && ((y + i < 0 || y + i >= labyrinth.length) || labyrinth[x][y+i] == WALL)) return false;
+            if (rot == 0) {
+                if (isOutOfBounds(x + i, y)) return false;
+                if (labyrinth[y][x+i] == WALL) return false;
+            } else {
+                if (isOutOfBounds(x, y + i)) return false;
+                if (labyrinth[y+i][x] == WALL) return false;
+            }
         }
         return true;
     }
     
+    public boolean isOutOfBounds (int x, int y) {
+        return x < 0 || x == labyrinth[0].length || y < 0 || y == labyrinth.length;
+    }
+    
     public int calculateHeuristic (int x, int y, int rot) {
-        int xdiff, ydiff;
-        if (rot == 1) {
-            xdiff = x + 1 - labyrinth[0].length - 1;
-            ydiff = y - labyrinth.length - 1;
+        int xdiff = 0, ydiff = 0;
+        if (rot == 0) {
+            xdiff = x + 1 - (labyrinth[0].length - 1);
+            ydiff = y - (labyrinth.length - 1);
         } else {
-            xdiff = x - labyrinth[0].length - 1;
-            ydiff = y + 1 - labyrinth.length - 1;
+            xdiff = x - (labyrinth[0].length - 1);
+            ydiff = y + 1 - (labyrinth.length - 1);
         }
 
-        return xdiff + ydiff;
+        return Math.abs(xdiff) + Math.abs(ydiff);
     }
 
     @Override
@@ -63,7 +72,12 @@ public class Model implements EventListener {
         ModelEvent event = (ModelEvent) e;
         switch (event.viewEventType) {
             case INIT:
-                this.labyrinth = event.labyrinth;
+                this.labyrinth = new char[event.labyrinth.length][event.labyrinth[0].length];
+                for (int i = 0; i < this.labyrinth.length; i++) {
+                    for (int j = 0; j < this.labyrinth[0].length; j++) {
+                        this.labyrinth[i][j] = event.labyrinth[i][j];
+                    }
+                }
                 break;
         }
     }

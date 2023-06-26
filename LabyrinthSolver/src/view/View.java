@@ -20,7 +20,9 @@ public class View implements EventListener {
     
     public View (Main main) {
         this.main = main;
-        
+    }
+    
+    public void start () {
         sizeInput();
         laberynthInput();
         calculateResult();
@@ -36,7 +38,20 @@ public class View implements EventListener {
     private void laberynthInput () {
         // Input for the laberynth
         System.out.println("[Insert laberynth layout] You must insert line by line putting the elements together:");
-        char[][] lab = new char[sizes[0]][sizes[1]];
+        /*
+        char[][] lab = {
+            {'.','.','.','.','.','.','.','.','.','.'},
+            {'.','#','.','.','.','.','#','.','.','.'},
+            {'.','#','.','.','.','.','.','.','.','.'},
+            {'.','.','.','.','.','.','.','.','.','.'},
+            {'.','.','.','.','.','.','.','.','.','.'},
+            {'.','#','.','.','.','.','.','.','.','.'},
+            {'.','#','.','.','.','#','.','.','.','.'},
+            {'.','.','.','.','.','.','#','.','.','.'},
+            {'.','.','.','.','.','.','.','.','.','.'},
+            {'.','.','.','.','.','.','.','.','.','.'}               
+        };
+        */
         String line = "";
         for (int i = 0; i < sizes[0]; i++) {
             line = sc.next();

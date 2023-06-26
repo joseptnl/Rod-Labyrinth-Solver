@@ -18,6 +18,8 @@ public class Main implements EventListener {
         this.model = new Model(this);
         this.controller = new Controller(this);
         this.view = new View(this);
+        
+        view.start();
     }
     
     public Model getModel () {
@@ -28,6 +30,7 @@ public class Main implements EventListener {
     public void notify (Event e) {
         switch (e.eventType) {
             case VIEW:
+                this.view.notify(e);
                 break;
             case MODEL:
                 this.model.notify(e);

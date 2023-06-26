@@ -51,9 +51,10 @@ public class Controller implements EventListener {
         HashMap<String, Integer> closed = new HashMap<String, Integer>();
         PriorityQueue<RodState> opened = new PriorityQueue<>();
         
-        // Create initial state at up-left corner
+        // Create initial state at up-left corner horizontaly
         parent = new RodState(1, 0, 0, 0);
         opened.add(parent);
+        closed.put(parent.key, parent.nSteps);
         
         while (!opened.isEmpty()) {
             parent = opened.poll();
