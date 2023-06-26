@@ -1,6 +1,7 @@
 
 package view;
 
+import controller.ControllerEvent;
 import java.util.Scanner;
 import main.Event;
 import main.EventListener;
@@ -57,6 +58,7 @@ public class View implements EventListener {
     
     private void calculateResult () {
         // Activate the controller algorithm execution
+        main.notify(new ControllerEvent());
         // Show result
     }
 

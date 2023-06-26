@@ -1,6 +1,7 @@
 
 package main;
 
+import controller.Controller;
 import model.Model;
 import view.View;
 
@@ -11,9 +12,16 @@ import view.View;
 public class Main implements EventListener {
     private View view;
     private Model model;
+    private Controller controller;
     
-    public static void main(String[] args) {
-        (new Main()).init();
+    public void init() {
+        this.model = new Model(this, 0, 0, 0);
+        this.controller = new Controller(this);
+        this.view = new View(this);
+    }
+    
+    public Model getModel () {
+        return this.model;
     }
     
     @Override
@@ -25,12 +33,12 @@ public class Main implements EventListener {
                 this.model.notify(e);
                 break;
             case CONTROLLER:
-                
+                this.controller.notify(e);
+                break;
         }
     }
     
-    public void init() {
-        this.view = new View(this);
-        this.model = new Model(0, 0, 0);
+    public static void main(String[] args) {
+        (new Main()).init();
     }
 }
