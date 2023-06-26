@@ -1,11 +1,11 @@
 
-package labyrinthsolver;
+package main;
 
 /**
  *
  * @author josep
  */
-enum EventType {
+public enum EventType {
     VIEW,
     MODEL,
     CONTROLLER

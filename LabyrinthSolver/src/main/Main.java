@@ -1,15 +1,17 @@
 
-package labyrinthsolver;
+package main;
+
+import view.View;
 
 /**
  *
  * @author josep
  */
-public class LabyrinthSolver implements EventListener {
-
+public class Main implements EventListener {
+    private View view;
     
     public static void main(String[] args) {
-        
+        (new Main()).init();
     }
     
     @Override
@@ -22,5 +24,9 @@ public class LabyrinthSolver implements EventListener {
             case CONTROLLER:
                 
         }
+    }
+    
+    public void init() {
+        this.view = new View(this);
     }
 }
