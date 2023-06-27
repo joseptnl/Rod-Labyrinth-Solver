@@ -1,7 +1,9 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.PriorityQueue;
+import java.util.Set;
 import main.Event;
 import main.EventListener;
 import main.Main;
@@ -53,20 +55,20 @@ public class Controller implements EventListener {
         int movx, movy;
         RodState parent, son;
         
-        HashMap<String, Integer> closed = new HashMap<String, Integer>();
+        Set<String> closed = new HashSet<String> ();
         PriorityQueue<RodState> opened = new PriorityQueue<>();
         
         // Create initial state at up-left corner horizontaly
         parent = new RodState(1, 0, 0, 0);
         opened.add(parent);
-        closed.put(parent.key, parent.nSteps);
         
         while (!opened.isEmpty()) {
             parent = opened.poll();
+            closed.add(parent.key);
             
             // Generate offspring
             // Try all movements
-            for (int m = 0; m < model.getNMovements(); m++) {
+            for (int m = 0; m < model.getNMovements(); m++) {          
                 // Get movement
                 movx = model.getMovementX(m);
                 movy = model.getMovementY(m);
@@ -84,6 +86,8 @@ public class Controller implements EventListener {
                         parent.nSteps + 1
                 );
                 son.heurValue = model.calculateHeuristic(son.cx, son.cy, son.rot);
+                
+                if (closed.contains(son.key)) continue;
 
                 // Check solution
                 if (son.heurValue == 0) {
@@ -92,18 +96,7 @@ public class Controller implements EventListener {
                     return;
                 }
                 
-                // If son already exists is updated in the hash and put in the 
-                // queue if it faster to get there
-                if (closed.containsKey(son.key)) {
-                    if (son.nSteps < closed.get(son.key)) {
-                        closed.replace(son.key, son.nSteps);
-                        opened.add(son);
-                    }
-                // If son doesn't will be added to the strutures
-                } else {
-                    closed.put(son.key, son.nSteps);
-                    opened.add(son);
-                }
+                opened.add(son);
             }
             // Try rotation
             int rotation = parent.rot == 0 ? 1 : 0;
@@ -117,18 +110,9 @@ public class Controller implements EventListener {
                 );
                 son.heurValue = model.calculateHeuristic(son.cx, son.cy, son.rot);
                 
-                // If son already exists is updated in the hash and put in the 
-                // queue if it faster to get there
-                if (closed.containsKey(son.key)) {
-                    if (son.nSteps < closed.get(son.key)) {
-                        closed.replace(son.key, son.nSteps);
-                        opened.add(son);
-                    }
-                // If son doesn't will be added to the strutures
-                } else {
-                    closed.put(son.key, son.nSteps);
-                    opened.add(son);
-                }
+                if (closed.contains(son.key)) continue;
+
+                opened.add(son);
             }
         }
         main.notify(new ViewEvent(-1));

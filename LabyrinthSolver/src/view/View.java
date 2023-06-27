@@ -38,9 +38,9 @@ public class View implements EventListener {
     private void laberynthInput () {
         // Input for the laberynth
         System.out.println("[Insert laberynth layout] You must insert line by line putting the elements together:");
-        char[][] lab = new char[sizes[0]][sizes[1]];
         
-        /* MODIFY LAYOUT HERE
+        // MODIFY LAYOUT MANUALY HERE:
+        /*
         char[][] lab = {
             {'.','.','.','.','.','.','.','.','.','.'},
             {'.','#','.','.','.','.','#','.','.','.'},
@@ -54,13 +54,10 @@ public class View implements EventListener {
             {'.','.','.','.','.','.','.','.','.','.'}               
         };
         */
-        String line = "";
-        for (int i = 0; i < sizes[0]; i++) {
-            line = sc.next();
-            for (int j = 0; j < sizes[1]; j++) {
-                lab[i][j] = line.charAt(j);
-            }
-        }
+        // TO MODIFY MANUALY COMMENT THE NEXT 2 LINES:
+        char[][] lab = new char[sizes[0]][sizes[1]];
+        askForLabLayout(lab);
+        
         // Show the created laberynth
         System.out.println("The created laberynth is the followed: ");
         for (int i = 0; i < sizes[0]; i++) {
@@ -71,6 +68,16 @@ public class View implements EventListener {
         }
         // Sen lab. to model
         main.notify(new ModelEvent(lab));
+    }
+    
+    private void askForLabLayout (char[][] lab) {
+        String line = "";
+        for (int i = 0; i < sizes[0]; i++) {
+            line = sc.next();
+            for (int j = 0; j < sizes[1]; j++) {
+                lab[i][j] = line.charAt(j);
+            }
+        }
     }
     
     private void calculateResult () {
