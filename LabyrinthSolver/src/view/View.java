@@ -38,7 +38,9 @@ public class View implements EventListener {
     private void laberynthInput () {
         // Input for the laberynth
         System.out.println("[Insert laberynth layout] You must insert line by line putting the elements together:");
-        /*
+        char[][] lab = new char[sizes[0]][sizes[1]];
+        
+        /* MODIFY LAYOUT HERE
         char[][] lab = {
             {'.','.','.','.','.','.','.','.','.','.'},
             {'.','#','.','.','.','.','#','.','.','.'},
@@ -84,7 +86,8 @@ public class View implements EventListener {
     public void notify(Event e) {
         ViewEvent event = (ViewEvent) e;
         switch(event.viewEventType) {
-            case SOLUTION:
+            case SOLUTION:  // Event triggered by the controller when it has a
+                            // result
                 showResult(event.result);
                 break;
         }

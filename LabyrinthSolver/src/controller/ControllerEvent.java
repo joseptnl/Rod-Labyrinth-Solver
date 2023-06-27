@@ -13,7 +13,7 @@ import main.EventType;
 public class ControllerEvent extends Event {
     public ControllerEventType controllerEventType;
 
-    // Event to init model
+    // Event to start the calculation
     public ControllerEvent() {
         super(EventType.CONTROLLER);
         this.controllerEventType = ControllerEventType.START_TO_SOLVE;

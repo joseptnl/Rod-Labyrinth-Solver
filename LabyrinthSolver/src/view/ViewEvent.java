@@ -13,6 +13,7 @@ public class ViewEvent extends Event {
     public ViewEventType viewEventType;
     public int result;
 
+    // Event to send the result to view
     public ViewEvent(int result) {
         super(EventType.VIEW);      
         this.result = result;

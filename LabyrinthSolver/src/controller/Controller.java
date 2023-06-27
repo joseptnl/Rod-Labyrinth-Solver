@@ -13,10 +13,14 @@ import view.ViewEvent;
  *
  * @author josep
  */
+
+/**
+ * This class represents a state of the rod during its pathwalk.
+ */
 class RodState implements Comparable<RodState> {
     public final int cx, cy, rot, nSteps; // Center x coord., center y coord & rotation
     public int heurValue;
-    public String key;
+    public String key; // For the hash
     
     public RodState (int cx, int cy, int rot, int nSteps) {
         this.cx = cx;
@@ -28,6 +32,7 @@ class RodState implements Comparable<RodState> {
     
     @Override
     public int compareTo(RodState state) {
+        // f(x) > f'(x)?
         return (this.nSteps + this.heurValue) > (state.nSteps + state.heurValue) ? 1 : -1;
     }
 }
@@ -133,7 +138,7 @@ public class Controller implements EventListener {
     public void notify(Event e) {
         ControllerEvent event = (ControllerEvent) e;
         switch (event.controllerEventType) {
-            case START_TO_SOLVE:
+            case START_TO_SOLVE: // Event triggered by View
                 init();
                 break;
         }

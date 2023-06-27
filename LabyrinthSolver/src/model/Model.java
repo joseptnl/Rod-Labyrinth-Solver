@@ -12,9 +12,7 @@ import main.Main;
 public class Model implements EventListener {
     private Main main;
     
-    static final int[] ROD_SIZE = {1, 3}; // Width and Lenght
     static final char WALL = '#';
-    static final char EMPTY = '.';
     
     private char[][] labyrinth;
     
@@ -54,6 +52,10 @@ public class Model implements EventListener {
         return x < 0 || x == labyrinth[0].length || y < 0 || y == labyrinth.length;
     }
     
+    /**
+     * Manhattan distance between labyrinth bottom left corner and rod closest
+     * corner.
+     */
     public int calculateHeuristic (int x, int y, int rot) {
         int xdiff = 0, ydiff = 0;
         if (rot == 0) {
@@ -71,13 +73,8 @@ public class Model implements EventListener {
     public void notify(Event e) {
         ModelEvent event = (ModelEvent) e;
         switch (event.viewEventType) {
-            case INIT:
-                this.labyrinth = new char[event.labyrinth.length][event.labyrinth[0].length];
-                for (int i = 0; i < this.labyrinth.length; i++) {
-                    for (int j = 0; j < this.labyrinth[0].length; j++) {
-                        this.labyrinth[i][j] = event.labyrinth[i][j];
-                    }
-                }
+            case INIT: // Event triggered by View
+                this.labyrinth = event.labyrinth;
                 break;
         }
     }
